@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Post</title>
+</head>
+<body style="font-family: Arial; text-align:center; margin-top:50px;">
+
+    <h2>Create a New Post</h2>
+
+    <form method="POST">
+        <textarea name="content" rows="5" cols="40" placeholder="Write your post..." required></textarea><br><br>
+        <button type="submit">Post</button>
+    </form>
+
+    <br>
+    <a href="/dashboard/{{ current_user.id }}">⬅ Back to Dashboard</a>
+
+</body>
+</html>

@@ -1,9 +1,9 @@
+from datetime import datetime
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
 db = SQLAlchemy()
-
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -12,10 +12,20 @@ class Users(db.Model, UserMixin):
     password_hash = db.Column(db.String(128), nullable=False)
 
     def set_password(self, password):
-        self.password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()
+        self.password_hash = bcrypt.hashpw(
+            password.encode("utf-8"),
+            bcrypt.gensalt()
         ).decode("utf-8")
 
     def check_password(self, password):
         return bcrypt.checkpw(
-            password.encode("utf-8"), self.password_hash.encode("utf-8")
+            password.encode("utf-8"),
+            self.password_hash.encode("utf-8")
         )
+
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(500))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
